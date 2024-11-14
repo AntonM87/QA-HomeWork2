@@ -14,15 +14,15 @@ public class BaseTest {
 
     @BeforeEach
     public void before(){
-        System.setProperty("webdriver.chrome.driver", String.valueOf(Properties.testProperties));
+        System.setProperty("webdriver.chrome.driver",  "C:\\chromedriver.exe");
         chromeDriver = new ChromeDriver();
         chromeDriver.manage().window().maximize();
         chromeDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         chromeDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         chromeDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
     }
-//    @AfterEach
-//    public void after(){
-//        chromeDriver.quit();
-//    }
+    @AfterEach
+    public void after(){
+        chromeDriver.quit();
+    }
 }
