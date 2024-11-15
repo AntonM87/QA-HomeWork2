@@ -6,15 +6,19 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
+import static Helpers.Properties.homeWorkProperties;
+
 public class BaseTest {
-    protected WebDriver chromeDriver;
+    protected static WebDriver chromeDriver;
+    protected WebDriverWait wait;
 
     @BeforeEach
     public void before(){
-        System.setProperty("webdriver.chrome.driver",  "C:\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", homeWorkProperties.chromeDriverOrigin());
         chromeDriver = new ChromeDriver();
         chromeDriver.manage().window().maximize();
         chromeDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -23,6 +27,9 @@ public class BaseTest {
     }
     @AfterEach
     public void after(){
-        chromeDriver.quit();
+//        chromeDriver.quit();
+    }
+    protected static WebDriver getChromeDriver(){
+        return chromeDriver;
     }
 }

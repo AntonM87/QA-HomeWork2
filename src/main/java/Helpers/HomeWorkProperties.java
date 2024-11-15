@@ -9,9 +9,13 @@ import org.aeonbits.owner.Config;
 })
 
 public interface HomeWorkProperties extends Config {
-    @Config.Key("C:\\tmp\\chromedriver.exe")
-    String chromeDriverOriginPath();
 
     @Config.Key("main.url")//main.url - это индефикатор этого параметра в файле main.properties
     String mainUrl();
+
+    @Config.Key("timeOutsSeconds")
+    Integer timeOutsSeconds();
+
+    @Config.Key("chromeDriverOrigin")
+    String chromeDriverOrigin();
 }
