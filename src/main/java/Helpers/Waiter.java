@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static Helpers.Properties.homeWorkProperties;
 
 public class Waiter extends BaseTest {
-    protected static WebDriverWait wait = new WebDriverWait(chromeDriver, homeWorkProperties.timeOutsSeconds());
+    protected static WebDriverWait wait = new WebDriverWait(BaseTest.chromeDriver, homeWorkProperties.timeOutsSeconds());
 
     public static WebElement isClickableWait(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated((By) locator));
