@@ -1,17 +1,13 @@
-package HomeWork2;
-
-import Helpers.HomeWorkProperties;
-import Helpers.Properties;
+import helpers.HomeWorkProperties;
+import helpers.MyChromDriver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.concurrent.TimeUnit;
-
-import static Helpers.Properties.homeWorkProperties;
+import static helpers.HomeWorkProperties.homeWorkProperties;
 
 public class BaseTest {
     protected static WebDriver chromeDriver;
@@ -21,16 +17,14 @@ public class BaseTest {
     @BeforeEach
     public void before(){
         System.setProperty("webdriver.chrome.driver", homeWorkProperties.chromeDriverOrigin());
-        chromeDriver = new ChromeDriver();
-        chromeDriver.manage().window().maximize();
-        chromeDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        chromeDriver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-        chromeDriver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
+        chromeDriver = new MyChromDriver().getChromeDriver();
+        System.out.println(chromeDriver);
 
         actions = new Actions(chromeDriver);
     }
     @AfterEach
     public void after(){
+//        chromeDriver.close();
 //        chromeDriver.quit();
     }
 //    public static WebDriver getChromeDriver(){

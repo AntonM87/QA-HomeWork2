@@ -3,7 +3,9 @@ target/
 !**/src/main/target/
 
 ### IntelliJ IDEA ###
-.idea/
-*.iws
-*.iml
-*.ipr
+# other files
+.allure
+allure-results
+build
+.idea
+target

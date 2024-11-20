@@ -1,6 +1,7 @@
-package Helpers;
+package helpers;
 
 import org.aeonbits.owner.Config;
+import org.aeonbits.owner.ConfigFactory;
 
 @Config.LoadPolicy(Config.LoadType.MERGE)
 @Config.Sources({"system:properties",
@@ -10,6 +11,8 @@ import org.aeonbits.owner.Config;
 
 public interface HomeWorkProperties extends Config {
 
+    public HomeWorkProperties homeWorkProperties = ConfigFactory.create(HomeWorkProperties.class);
+
     @Config.Key("main.url")//main.url - это индефикатор этого параметра в файле main.properties
     String mainUrl();
 
@@ -18,4 +21,5 @@ public interface HomeWorkProperties extends Config {
 
     @Config.Key("chromeDriverOrigin")
     String chromeDriverOrigin();
+
 }
