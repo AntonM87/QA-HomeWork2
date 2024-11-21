@@ -14,7 +14,7 @@ public class Tests extends BaseTest {
 
 //    private Waiter wait = new Waiter(chromeDriver);
 
-    private WebDriverWait wait = new WebDriverWait(chromeDriver,10);
+//    private WebDriverWait wait = new WebDriverWait(chromeDriver,10);
 
     protected By enterCatalog = By.xpath("//div[@id=\"/content/header/header/catalogEntrypoint\"]//div[@data-zone-name=\"catalog\"]");
     protected By computersLaptops = By.xpath("//ul[@role=\"tablist\"]//li//a//span[text()=\"Ноутбуки и компьютеры\"]");
@@ -55,9 +55,9 @@ public class Tests extends BaseTest {
 
         chromeDriver.get(homeWorkProperties.mainUrl());
         wait.until(ExpectedConditions.visibilityOfElementLocated(enterCatalog));
-//        BaseTest.chromeDriver.findElement(enterCatalog).click();
+        BaseTest.chromeDriver.findElement(enterCatalog).click();
 
-//        Waiter.isClickableWait(computersLaptops);
+        waiter.isClickableWait(computersLaptops);
 //        actions.moveToElement(BaseTest.chromeDriver.findElement(computersLaptops));
 //        BaseTest.chromeDriver.findElement(computersLaptops).click();
 //
