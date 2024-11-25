@@ -4,29 +4,29 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.BasePage;
+import pages.MainPage;
+
+import java.util.List;
 
 import static helpers.HomeWorkProperties.homeWorkProperties;
 
 public class Tests extends BaseTest {
 
-//    private Waiter wait = new Waiter(chromeDriver);
 
-    private WebDriverWait wait = new WebDriverWait(chromeDriver,10);
-
-    protected By enterCatalog = By.xpath("//div[@id=\"/content/header/header/catalogEntrypoint\"]//div[@data-zone-name=\"catalog\"]");
-    protected By computersLaptops = By.xpath("//ul[@role=\"tablist\"]//li//a//span[text()=\"Ноутбуки и компьютеры\"]");
-    protected By computersLaptopsHeader = By.xpath("//div[@data-apiary-widget-id=\"/content/page/fancyPage/cms/0/108133154-CatalogHeader\"]//h1[text()=\"Ноутбуки и компьютеры\"]");
     protected By onlyLaptops = By.xpath("//a[@href=\"/catalog--noutbuki/26895412/list?hid=91013\"]");
     protected By priceFrom = By.xpath("//fieldset//span[@data-auto=\"filter-range-min\"]//input");
     protected By priceTо = By.xpath("//fieldset//span[@data-auto=\"filter-range-max\"]//input");
-    protected By brandLenovo = By.xpath("//fieldset//h4[text()=\"Бренд\"]/../../..//span[text()=\"Lenovo\"]");
-    protected By brandHP = By.xpath("//fieldset//h4[text()=\"Бренд\"]/../../..//span[text()=\"HP\"]");
-    protected By listSelectedLaptops = By.xpath("//div[@id=\"/marketfrontSerpLayout\"]//div//div[@data-apiary-widget-name=\"@marketfront/SerpEntity\"]//a");
-    protected By buttonClosePopUp = By.xpath("//button[@aria-label=\"Закрыть\" and @data-auto=\"close-popup\"]");
-    protected By listWrapperSelectedLaptops = By.xpath("//div[@data-auto=\"SerpList\"]");
+    protected By brandCHUWI = By.xpath("//fieldset//h4[text()=\"Бренд\"]/../../..//span[text()=\"ASUS\"]");
+    protected By brandPackardBell = By.xpath("//fieldset//h4[text()=\"Бренд\"]/../../..//span[text()=\"Lenovo\"]");
+    protected By listSelectedLaptops = By.xpath("//div[@data-auto=\"SerpList\"]");
+    //    protected By buttonClosePopUp = By.xpath("//button[@aria-label=\"Закрыть\" and @data-auto=\"close-popup\"]");
+    protected By laptopsLoader = By.xpath("//div[@data-auto=\"SerpStatic-loader\"]");
+//    protected By spinner = By.xpath("//div[@data-auto='preloader'] | //span[contains(@data-auto, 'spinner')]");
+    protected By spinner = By.xpath("//div[@data-auto='preloader'] | //span[contains(@data-auto='spinner')]");
 
     @Feature("Проверка property")
     @DisplayName("Проверка работа property")
@@ -50,42 +50,42 @@ public class Tests extends BaseTest {
     @Test
     public void enterCatalog() {
 
-        String header;
         WebElement priceFromField;
 
-        chromeDriver.get(homeWorkProperties.mainUrl());
-        wait.until(ExpectedConditions.visibilityOfElementLocated(enterCatalog));
-//        BaseTest.chromeDriver.findElement(enterCatalog).click();
+        //зашли в каталог
+        MainPage mainPage = new MainPage(chromeDriver);
+        mainPage.openMainPage();
 
-//        Waiter.isClickableWait(computersLaptops);
-//        actions.moveToElement(BaseTest.chromeDriver.findElement(computersLaptops));
-//        BaseTest.chromeDriver.findElement(computersLaptops).click();
-//
-//        Waiter.isClickableWait(computersLaptopsHeader);
-//        header = BaseTest.chromeDriver.findElement(computersLaptopsHeader).getText();
-//        Assertions.assertEquals("Ноутбуки и компьютеры", header, "Ошибка, раздел не -> " + header);
-//
-//        Waiter.isClickableWait(onlyLaptops);
+        //навелись на ноутбуки
+        mainPage.moveToLaptopCatalog();
+
+        //клик по разделу с ноутбуками
+        mainPage.enterLaptopCatalog();
+
+        //повторный выбор ноутбуков
+//        waiter.isClickableWait(onlyLaptops);
 //        BaseTest.chromeDriver.findElement(onlyLaptops).click();
 //
-//        //следующая страница
+//        //устанавливаем минимальный прайс
 //        priceFromField = BaseTest.chromeDriver.findElement(priceFrom);
 //        priceFromField.click();
 //        priceFromField.sendKeys("10000");
 //
+//        //устанавливаем максимальный прайс и запускаем поиск
 //        priceFromField = BaseTest.chromeDriver.findElement(priceTо);
 //        priceFromField.click();
 //        priceFromField.sendKeys("30000" + Keys.ENTER);
 //
-////        if (chromeDriver.findElement(buttonClosePopUp).isEnabled()) chromeDriver.findElement(buttonClosePopUp).click();
+//        //выбираем бренды
+//        chromeDriver.findElement(brandPackardBell).click();
+//        chromeDriver.findElement(brandCHUWI).click();
 //
-//        chromeDriver.findElement(brandLenovo).click();
-//        chromeDriver.findElement(brandHP).click();
+//        //ждем загрузки лоадера
+//        wait.until(ExpectedConditions.invisibilityOfElementLocated(spinner));
 //
-//        Waiter.isClickableWait(listWrapperSelectedLaptops);
 //        List<WebElement> list = chromeDriver.findElements(listSelectedLaptops);
-//
 //        Assertions.assertTrue(list.size() < 12, "Длинна списка ноутбуков не удовлетворительная(менее 12ти)");
+
     }
 
 }
