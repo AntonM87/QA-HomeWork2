@@ -24,6 +24,15 @@ public class Waiter {
 
     }
 
+    /*
+    у ExpectedConditions нет visibilityOfElementLocated для WebElement - проваливайся в класс и смотри, там всё описано
+    есть метод visibilityOf(WebElement), но для проверки кликабильности лучше использовать elementToBeClickable(WebElement),
+    т.к. он уже содержит внутри себя проверку visibilityOf
+     */
+    public WebElement isClickableWait(WebElement element) {
+        return this.wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
     public boolean waitContentLoader(By locator, WebDriver driver) {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
         WebElement s = driver.findElement(locator);

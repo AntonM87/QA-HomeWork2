@@ -11,13 +11,13 @@ import static helpers.HomeWorkProperties.homeWorkProperties;
 
 public class MainPage extends BasePage{
 
-    @FindBy(xpath = "//div[@id=\"/content/header/header/catalogEntrypoint\"]//div[@data-zone-name=\"catalog\"]")
+    @FindBy(how = How.XPATH, using = "//div[@id=\"/content/header/header/catalogEntrypoint\"]//div[@data-zone-name=\"catalog\"]")
     private WebElement enterCatalog;
 
-    @FindBy(xpath = "//ul[@role=\"tablist\"]//li//a//span[text()=\"Ноутбуки и компьютеры\"]")
+    @FindBy(how = How.XPATH, using = "//ul[@role=\"tablist\"]//li//a//span[text()=\"Ноутбуки и компьютеры\"]")
     private WebElement computersLaptops;
 
-    @FindBy(xpath = "//div[@data-apiary-widget-id=\"/content/page/fancyPage/cms/0/108133154-CatalogHeader\"]//h1[text()=\"Ноутбуки и компьютеры\"]")
+    @FindBy(how = How.XPATH, using = "//div[@data-apiary-widget-id=\"/content/page/fancyPage/cms/0/108133154-CatalogHeader\"]//h1[text()=\"Ноутбуки и компьютеры\"]")
     private WebElement computersLaptopsHeader;
 
     public MainPage(WebDriver chromeDriver) {
@@ -27,20 +27,18 @@ public class MainPage extends BasePage{
     public void openMainPage(){
         chromeDriver.get(homeWorkProperties.mainUrl());
         waiter.isClickableWait(enterCatalog);
-        enterCatalog.click();
+        chromeDriver.findElement(enterCatalog).click();
     }
-
     public void moveToLaptopCatalog(){
         waiter.isClickableWait(computersLaptops);
-        actions.moveToElement(computersLaptops);
-        computersLaptops.click();
-
+        actions.moveToElement(chromeDriver.findElement(computersLaptops));
+        chromeDriver.findElement(computersLaptops).click();
     }
 
     public void enterLaptopCatalog(){
         String header;
         waiter.isClickableWait(computersLaptopsHeader);
-        header = computersLaptopsHeader.getText();
+        header = chromeDriver.findElement(computersLaptopsHeader).getText();
         Assertions.assertEquals("Ноутбуки и компьютеры", header, "Ошибка, раздел не -> " + header);
     }
 }
