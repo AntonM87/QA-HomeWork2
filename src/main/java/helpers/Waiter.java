@@ -18,6 +18,10 @@ public class Waiter {
         return this.wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    public WebElement isClickableWait(WebElement element) {
+        return this.wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
     public boolean waitContentLoader(By locator, WebDriver driver) {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
         WebElement s = driver.findElement(locator);
