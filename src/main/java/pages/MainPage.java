@@ -17,6 +17,11 @@ public class MainPage extends BasePage{
     @FindBy(how = How.XPATH, using = "//ul[@role=\"tablist\"]//li//a//span[text()=\"Ноутбуки и компьютеры\"]")
     private WebElement computersLaptops;
 
+    /*
+    Нафига усложнять? пиши сразу xpath =
+    @FindBy(xpath = "//div[@data-apiary-widget-id=\"/content/page/fancyPage/cms/0/108133154-CatalogHeader\"]//h1[text()=\"Ноутбуки и компьютеры\"]")
+    А ещё вместо \" используй '
+     */
     @FindBy(how = How.XPATH, using = "//div[@data-apiary-widget-id=\"/content/page/fancyPage/cms/0/108133154-CatalogHeader\"]//h1[text()=\"Ноутбуки и компьютеры\"]")
     private WebElement computersLaptopsHeader;
 
@@ -28,6 +33,10 @@ public class MainPage extends BasePage{
         chromeDriver.get(homeWorkProperties.mainUrl());
         waiter.isClickableWait(enterCatalog);
         chromeDriver.findElement(enterCatalog).click();
+        /*
+        Учись пользоваться т.н. лесенкой или цепочкой, т.е.:
+        в одну строку ждёшь кликабельность и кликаешь - waiter.isClickableWait(enterCatalog).click();
+         */
     }
     public void moveToLaptopCatalog(){
         waiter.isClickableWait(computersLaptops);
