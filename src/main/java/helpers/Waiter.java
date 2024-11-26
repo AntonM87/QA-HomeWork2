@@ -26,6 +26,7 @@ public class Waiter {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
         WebElement s = driver.findElement(locator);
         return s.isDisplayed();
+
     }
 
 }
