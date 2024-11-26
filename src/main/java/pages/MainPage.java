@@ -34,6 +34,7 @@ public class MainPage extends BasePage{
         waiter.isClickableWait(computersLaptops);
         actions.moveToElement(computersLaptops);
         computersLaptops.click();
+
     }
 
     public void enterLaptopCatalog(){

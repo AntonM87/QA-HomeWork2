@@ -16,10 +16,12 @@ public class Waiter {
 
     public WebElement isClickableWait(By locator) {
         return this.wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
     }
 
     public WebElement isClickableWait(WebElement element) {
         return this.wait.until(ExpectedConditions.elementToBeClickable(element));
+
     }
 
     public boolean waitContentLoader(By locator, WebDriver driver) {
