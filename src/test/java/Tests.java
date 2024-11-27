@@ -3,11 +3,14 @@ import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.BasePage;
+import pages.LaptopsAndComputers;
 import pages.MainPage;
 
 import java.util.List;
@@ -17,16 +20,16 @@ import static helpers.HomeWorkProperties.homeWorkProperties;
 public class Tests extends BaseTest {
 
 
-    protected By onlyLaptops = By.xpath("//a[@href=\"/catalog--noutbuki/26895412/list?hid=91013\"]");
-    protected By priceFrom = By.xpath("//fieldset//span[@data-auto=\"filter-range-min\"]//input");
+    private final By priceFrom = By.xpath("//fieldset//span[@data-auto=\"filter-range-min\"]//input");
     protected By priceTо = By.xpath("//fieldset//span[@data-auto=\"filter-range-max\"]//input");
-    protected By brandCHUWI = By.xpath("//fieldset//h4[text()=\"Бренд\"]/../../..//span[text()=\"ASUS\"]");
+
+    protected By brandASUS = By.xpath("//fieldset//h4[text()=\"Бренд\"]/../../..//span[text()=\"ASUS\"]");
     protected By brandPackardBell = By.xpath("//fieldset//h4[text()=\"Бренд\"]/../../..//span[text()=\"Lenovo\"]");
+
     protected By listSelectedLaptops = By.xpath("//div[@data-auto=\"SerpList\"]");
     //    protected By buttonClosePopUp = By.xpath("//button[@aria-label=\"Закрыть\" and @data-auto=\"close-popup\"]");
     protected By laptopsLoader = By.xpath("//div[@data-auto=\"SerpStatic-loader\"]");
-//    protected By spinner = By.xpath("//div[@data-auto='preloader'] | //span[contains(@data-auto, 'spinner')]");
-    protected By spinner = By.xpath("//div[@data-auto='preloader'] | //span[contains(@data-auto='spinner')]");
+    //    protected By spinner = By.xpath("//div[@data-auto='preloader'] | //span[contains(@data-auto, 'spinner')]");
 
     @Feature("Проверка property")
     @DisplayName("Проверка работа property")
@@ -47,10 +50,10 @@ public class Tests extends BaseTest {
 
     @Feature("Переход в каталог")
     @DisplayName("Поиск элекмента интерфейса для входа в католог")
+//    @ParameterizedTest(name="{displayName}:{arguments}")
+//    @CsvSource({"10000,priceFrom","30000,priceTо"})
     @Test
     public void enterCatalog() {
-
-        WebElement priceFromField;
 
         //зашли в каталог
         MainPage mainPage = new MainPage(chromeDriver);
@@ -62,27 +65,24 @@ public class Tests extends BaseTest {
         //клик по разделу с ноутбуками
         mainPage.enterLaptopCatalog();
 
-        //повторный выбор ноутбуков
-//        waiter.isClickableWait(onlyLaptops);
-//        BaseTest.chromeDriver.findElement(onlyLaptops).click();
-//
+        //вход в каталог только ноутбуков
+        LaptopsAndComputers laptopsAndComputers = new LaptopsAndComputers(chromeDriver);
+        laptopsAndComputers.enterLaptopsCatalog();
+
 //        //устанавливаем минимальный прайс
-//        priceFromField = BaseTest.chromeDriver.findElement(priceFrom);
-//        priceFromField.click();
-//        priceFromField.sendKeys("10000");
-//
+        laptopsAndComputers.setValuePrice(10000, priceFrom);
+
 //        //устанавливаем максимальный прайс и запускаем поиск
-//        priceFromField = BaseTest.chromeDriver.findElement(priceTо);
-//        priceFromField.click();
-//        priceFromField.sendKeys("30000" + Keys.ENTER);
-//
-//        //выбираем бренды
-//        chromeDriver.findElement(brandPackardBell).click();
-//        chromeDriver.findElement(brandCHUWI).click();
-//
-//        //ждем загрузки лоадера
-//        wait.until(ExpectedConditions.invisibilityOfElementLocated(spinner));
-//
+        laptopsAndComputers.setValuePrice(30000, priceTо);
+        laptopsAndComputers.pressEnter(priceTо);
+
+        //выбираем бренды
+        laptopsAndComputers.setBrand(brandASUS);
+        laptopsAndComputers.setBrand(brandPackardBell);
+
+        //ждем загрузки лоадера
+        laptopsAndComputers.waitContentLoader();
+
 //        List<WebElement> list = chromeDriver.findElements(listSelectedLaptops);
 //        Assertions.assertTrue(list.size() < 12, "Длинна списка ноутбуков не удовлетворительная(менее 12ти)");
 
