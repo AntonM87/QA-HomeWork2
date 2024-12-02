@@ -11,7 +11,7 @@ public class Waiter {
     private WebDriverWait wait;
 
     public Waiter(WebDriver driver) {
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, 15);
     }
 
     public WebElement isClickableWait(By locator) {

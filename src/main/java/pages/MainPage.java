@@ -24,6 +24,9 @@ public class MainPage extends BasePage{
     private final By enterCatalog = By.xpath("//div[@id='/content/header/header/catalogEntrypoint']//div[@data-zone-name='catalog']");
     private final By computersLaptops = By.xpath("//ul[@role=\"tablist\"]//li//a//span[text()=\"Ноутбуки и компьютеры\"]");
     private final By computersLaptopsHeader = By.xpath("//div[@data-apiary-widget-id=\"/content/page/fancyPage/cms/0/108133154-CatalogHeader\"]//h1[text()=\"Ноутбуки и компьютеры\"]");
+    private String firstLaptopElement;
+    private final By inputField = By.xpath("//input[@id='header-search']");
+    private final By inputFieldBtn = By.xpath("//button[@data-auto=\"search-button\"]");
 
     public MainPage(WebDriver chromeDriver) {
         super(chromeDriver);
@@ -32,6 +35,10 @@ public class MainPage extends BasePage{
     @Step("Открываем главную страницу яндекс маркета")
     public void openMainPage(){
         chromeDriver.get(homeWorkProperties.mainUrl());
+
+    }
+    @Step("Нажимаем кнопку каталог")
+    public void enterCatalog(){
         waiter.isClickableWait(enterCatalog);
         chromeDriver.findElement(enterCatalog).click();
     }
@@ -46,5 +53,18 @@ public class MainPage extends BasePage{
         waiter.isClickableWait(computersLaptopsHeader);
         String header = chromeDriver.findElement(computersLaptopsHeader).getText();
         helpers.Assertions.AssertEquals("Ноутбуки и компьютеры", header, "Ошибка, раздел не -> " + header);
+    }
+    @Step("Назначаем первый элемент среди списка ноутов")
+    public void setFirstLaptopElement(String s){
+        firstLaptopElement = s;
+    }
+    @Step("Получить содержимое заголовка первого элемента ноутбуков")
+    public String getFirstElement(){
+        return firstLaptopElement;
+    }
+    @Step("клик по полю поиска и заголовка первого элемента ноутбука")
+    public void searchFirstLaptopElement(){
+        chromeDriver.findElement(inputField).sendKeys(getFirstElement());
+        chromeDriver.findElement(inputFieldBtn).click();
     }
 }
