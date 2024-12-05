@@ -16,7 +16,7 @@ public class BaseTest {
     @BeforeEach
     public void before(){
         System.setProperty("webdriver.chrome.driver", homeWorkProperties.chromeDriverOrigin());
-        chromeDriver = new MyChromDriver().getChromeDriver();
+        chromeDriver = MyChromDriver.getDriver();
         System.out.println(chromeDriver);
         wait = new WebDriverWait(chromeDriver, 10);
         waiter = new Waiter(chromeDriver);

@@ -14,19 +14,12 @@ import static helpers.HomeWorkProperties.homeWorkProperties;
 
 public class Tests extends BaseTest {
 
-    String[] brandArr = {"ASUS"};
+//    String[] brandArr = {"ASUS"};
 
-    private final By priceFrom = By.xpath("//fieldset//span[@data-auto=\"filter-range-min\"]//input");
-    protected By priceTо = By.xpath("//fieldset//span[@data-auto=\"filter-range-max\"]//input");
-
-    protected By brandASUS = By.xpath("//fieldset//h4[text()=\"Бренд\"]/../../..//span[text()=\"ASUS\"]");
-    protected By brandPackardBell = By.xpath("//fieldset//h4[text()=\"Бренд\"]/../../..//span[text()=\"Lenovo\"]");
-
-    protected By listSelectedLaptops = By.xpath("//div[@data-auto=\"SerpList\"]");
-    protected By laptopsLoader = By.xpath("//div[@data-auto=\"SerpStatic-loader\"]");
-    //    protected By spinner = By.xpath("//div[@data-auto='preloader'] | //span[contains(@data-auto, 'spinner')]");
+//    protected By listSelectedLaptops = By.xpath("//div[@data-auto=\"SerpList\"]");
+//    protected By laptopsLoader = By.xpath("//div[@data-auto=\"SerpStatic-loader\"]");
+//    protected By spinner = By.xpath("//div[@data-auto='preloader'] | //span[contains(@data-auto, 'spinner')]");
 //    protected By productLinks = By.xpath("//div[@data-auto-themename='listDetailed'//div[@data-auto='snippet-title']]");
-    protected By productLinks = By.xpath("//span[@data-auto='snippet-title']");
 
     @Feature("Проверка property")
     @DisplayName("Проверка работа property")
@@ -53,7 +46,7 @@ public class Tests extends BaseTest {
     public void enterCatalog() {
 
         //зашли в каталог
-        MainPage mainPage = new MainPage(chromeDriver);
+        MainPage mainPage = new MainPage();
         mainPage.openMainPage();
         mainPage.enterCatalog();
 
@@ -64,33 +57,34 @@ public class Tests extends BaseTest {
         mainPage.enterLaptopCatalog();
 
         //вход в каталог только ноутбуков
-        LaptopsAndComputers laptopsAndComputers = new LaptopsAndComputers(chromeDriver);
+        LaptopsAndComputers laptopsAndComputers = new LaptopsAndComputers();
         laptopsAndComputers.enterLaptopsCatalog();
 
         //устанавливаем минимальный прайс
-        laptopsAndComputers.setValuePrice(10000, priceFrom);
+        laptopsAndComputers.setMinPrice(10000);
 
         //устанавливаем максимальный прайс и запускаем поиск
-        laptopsAndComputers.setValuePrice(30000, priceTо);
-        laptopsAndComputers.pressEnter(priceTо);
+        laptopsAndComputers.setMaxPrice(30000);
+        laptopsAndComputers.pressEnter();
 
         //выбираем бренды
-        laptopsAndComputers.setBrand(brandASUS);
+        laptopsAndComputers.setBrandASUS();
 //      laptopsAndComputers.setBrand(brandPackardBell);
 
         //ждем загрузки контента(когда исчезнет лоадер)
         laptopsAndComputers.waitContentLoader();
 
-        List<WebElement> list = chromeDriver.findElements(productLinks);
+        //получаем список товаров
+        laptopsAndComputers.getProductList();
 
         //проверить длину списка
-        laptopsAndComputers.listSizeValidate(list);
+        laptopsAndComputers.listSizeValidate();
 
         //проверить лист на содержимое
 //        laptopsAndComputers.listContentValidate(list, brandArr);
 
         // передать первый элемент из LaptopsAndComputers в MainPage
-        mainPage.setFirstLaptopElement(laptopsAndComputers.getFirstElement(list));
+        mainPage.setFirstLaptopElement(laptopsAndComputers.getFirstElement());
 
         //переход на главную страницу
         mainPage.openMainPage();

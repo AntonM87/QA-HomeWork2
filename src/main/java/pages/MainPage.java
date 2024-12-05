@@ -28,10 +28,6 @@ public class MainPage extends BasePage{
     private final By inputField = By.xpath("//input[@id='header-search']");
     private final By inputFieldBtn = By.xpath("//button[@data-auto=\"search-button\"]");
 
-    public MainPage(WebDriver chromeDriver) {
-        super(chromeDriver);
-    }
-
     @Step("Открываем главную страницу яндекс маркета")
     public void openMainPage(){
         chromeDriver.get(homeWorkProperties.mainUrl());
